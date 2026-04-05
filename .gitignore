@@ -39,3 +39,29 @@
 
 # debug information files
 *.dwo
+
+# Environment variables
+.env
+.env.*
+
+# Build directories
+/build/
+/bin/
+/out/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Makefile
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
