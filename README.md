@@ -1,7 +1,7 @@
 # ClimbUp
 This is a mobile application made for climbers who want an easier time visualizing and planning out their beta.
 The main features will include:
-- A manipulatable figure based on the user's physical characteristics that can be used to test out positions
+- A manipulatable figure based on the user's physical characteristics that can be used to test out positions or test reach
 - A center of gravity calculation and visualization to understand how different positions might feel or which ones might be more stable
 - Users can group and store positions they create for a particular climb 
 
