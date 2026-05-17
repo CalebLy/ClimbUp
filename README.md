@@ -19,3 +19,7 @@ Fatigue is a huge limitation to whether or not you send a climb. Especially for 
 
 
 
+## Skeleton Structure
+
+![Skeleton Diagram](docs/diagrams/skeleton-joints-and-limbs.png)
+

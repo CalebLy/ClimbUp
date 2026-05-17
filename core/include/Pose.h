@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "BodyProportions.h"
 #include "Vec3.h"
 
 // Design note:
@@ -16,6 +17,8 @@
 // Joint = a point on the body
 // Limb  = a connection between two joints
 // Pose  = the full skeleton state
+// Please refer to the diagram docs\diagrams\skeleton_joints_and_limbs.png
+
 enum class JointType
 {
     // Head / torso
@@ -47,7 +50,44 @@ enum class JointType
     RightHip,
     RightKnee,
     RightAnkle,
-    RightFoot
+    RightFoot,
+
+    JointCount
+};
+
+enum class LimbType
+{
+    // Torso
+    PelvisToSpine,
+    SpineToChest,
+    ChestToNeck,
+    NeckToHead,
+
+    // Left arm
+    ChestToLeftShoulder,
+    LeftUpperArm,
+    LeftForearm,
+    LeftHand,
+
+    // Right arm
+    ChestToRightShoulder,
+    RightUpperArm,
+    RightForearm,
+    RightHand,
+
+    // Left leg
+    PelvisToLeftHip,
+    LeftThigh,
+    LeftShin,
+    LeftFoot,
+
+    // Right leg
+    PelvisToRightHip,
+    RightThigh,
+    RightShin,
+    RightFoot,
+
+    LimbCount
 };
 
 /**
@@ -77,4 +117,5 @@ struct Pose
 {
     std::vector<Joint> joints;
     std::vector<Limb> limbs;
+    BodyProportions body;
 };
