@@ -27,7 +27,7 @@ Pose createPoseFromBodyProportions(const BodyProportions& body)
     return pose;
 }
 
-std::vector<Joint> initializeJoints(const BodyProportions &body)
+static std::vector<Joint> initializeJoints(const BodyProportions &body)
 {
 
     std::vector<Joint> joints(toIndex(JointType::JointCount));
@@ -35,9 +35,11 @@ std::vector<Joint> initializeJoints(const BodyProportions &body)
     const double hipWidth = body.shoulderWidth * 0.7;
     const double halfHipWidth = hipWidth / 2.0;
 
+    // =========================
     // Pelvis is the root.
     joints[toIndex(JointType::Pelvis)].position = {0.0, 0.0, 0.0};
 
+    // =========================
     // Torso
     joints[toIndex(JointType::Spine)].position =
         {0.0, body.torsoLength * 0.5, 0.0};
@@ -51,6 +53,7 @@ std::vector<Joint> initializeJoints(const BodyProportions &body)
     joints[toIndex(JointType::Head)].position =
         {0.0, body.torsoLength + body.neckLength + body.headHeight, 0.0};
 
+    // =========================
     // Shoulders
     joints[toIndex(JointType::LeftShoulder)].position =
         {-halfShoulderWidth, body.torsoLength, 0.0};
@@ -58,6 +61,7 @@ std::vector<Joint> initializeJoints(const BodyProportions &body)
     joints[toIndex(JointType::RightShoulder)].position =
         {halfShoulderWidth, body.torsoLength, 0.0};
 
+    // =========================
     // Left arm, hanging straight down
     joints[toIndex(JointType::LeftElbow)].position =
         {-halfShoulderWidth, body.torsoLength - body.upperArmLength, 0.0};
@@ -68,6 +72,7 @@ std::vector<Joint> initializeJoints(const BodyProportions &body)
     joints[toIndex(JointType::LeftHand)].position =
         {-halfShoulderWidth, body.torsoLength - body.upperArmLength - body.forearmLength - body.handLength, 0.0};
 
+    // =========================
     // Right arm, hanging straight down
     joints[toIndex(JointType::RightElbow)].position =
         {halfShoulderWidth, body.torsoLength - body.upperArmLength, 0.0};
@@ -78,6 +83,7 @@ std::vector<Joint> initializeJoints(const BodyProportions &body)
     joints[toIndex(JointType::RightHand)].position =
         {halfShoulderWidth, body.torsoLength - body.upperArmLength - body.forearmLength - body.handLength, 0.0};
 
+    // =========================
     // Hips
     joints[toIndex(JointType::LeftHip)].position =
         {-halfHipWidth, 0.0, 0.0};
@@ -85,6 +91,7 @@ std::vector<Joint> initializeJoints(const BodyProportions &body)
     joints[toIndex(JointType::RightHip)].position =
         {halfHipWidth, 0.0, 0.0};
 
+    // =========================
     // Left leg
     joints[toIndex(JointType::LeftKnee)].position =
         {-halfHipWidth, -body.upperLegLength, 0.0};
@@ -95,6 +102,7 @@ std::vector<Joint> initializeJoints(const BodyProportions &body)
     joints[toIndex(JointType::LeftFoot)].position =
         {-halfHipWidth, -body.upperLegLength - body.lowerLegLength, body.footLength};
 
+    // =========================
     // Right leg
     joints[toIndex(JointType::RightKnee)].position =
         {halfHipWidth, -body.upperLegLength, 0.0};
@@ -108,10 +116,11 @@ std::vector<Joint> initializeJoints(const BodyProportions &body)
     return joints;
 }
 
-std::vector<Limb> initializeLimbs()
+static std::vector<Limb> initializeLimbs()
 {
     std::vector<Limb> limbs(toIndex(LimbType::LimbCount));
 
+    // =========================
     // Torso
     limbs[toIndex(LimbType::PelvisToSpine)] =
     {
@@ -137,6 +146,7 @@ std::vector<Limb> initializeLimbs()
         toIndex(JointType::Head)
     };
 
+    // =========================
     // Left arm
     limbs[toIndex(LimbType::ChestToLeftShoulder)] =
     {
@@ -162,6 +172,7 @@ std::vector<Limb> initializeLimbs()
         toIndex(JointType::LeftHand)
     };
 
+    // =========================
     // Right arm
     limbs[toIndex(LimbType::ChestToRightShoulder)] =
     {
@@ -187,6 +198,7 @@ std::vector<Limb> initializeLimbs()
         toIndex(JointType::RightHand)
     };
 
+    // =========================
     // Left leg
     limbs[toIndex(LimbType::PelvisToLeftHip)] =
     {
@@ -212,6 +224,7 @@ std::vector<Limb> initializeLimbs()
         toIndex(JointType::LeftFoot)
     };
 
+    // =========================
     // Right leg
     limbs[toIndex(LimbType::PelvisToRightHip)] =
     {

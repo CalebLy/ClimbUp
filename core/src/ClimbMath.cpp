@@ -2,18 +2,21 @@
 //       that core/include is in the include path
 #include "ClimbMath.h"
 #include "Pose.h"
+#include "EnumUtils.h"
 #include <cstddef>
 #include <vector>
 #include <cmath>
 
-double getDistanceBetweenJoints(const Pose &pose, JointType jointA, JointType jointB)
+
+double distance(const Vec3& a, const Vec3& b)
 {
-    const Joint &a = pose.joints[static_cast<int>(jointA)];
-    const Joint &b = pose.joints[static_cast<int>(jointB)];
+    return (a - b).length();
+}
 
-    double dx = a.position.x - b.position.x;
-    double dy = a.position.y - b.position.y;
-    double dz = a.position.z - b.position.z;
+double getDistanceBetweenJoints(const Pose& pose, JointType jointA, JointType jointB)
+{
+    const Joint& a = pose.joints[toIndex(jointA)];
+    const Joint& b = pose.joints[toIndex(jointB)];
 
-    return std::sqrt(dx * dx + dy * dy + dz * dz);
+    return distance(a.position, b.position);
 }
