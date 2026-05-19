@@ -97,6 +97,7 @@ enum class LimbType
 struct Joint
 {
     Vec3 position;
+    JointType type;
 };
 
 /**
@@ -107,6 +108,7 @@ struct Limb
 {
     int startJointIndex;
     int endJointIndex;
+    LimbType type;
 };
 
 /**

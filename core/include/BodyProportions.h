@@ -4,6 +4,7 @@
 struct BodyProportions
 {
     double wingspan;
+    double weight;
 
     double torsoLength;
     double neckLength;

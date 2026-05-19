@@ -4,6 +4,7 @@ BodyProportions estimateBodyProportions(const UserProportions& user) {
     BodyProportions body;
 
     body.wingspan = user.height + user.apeIndex;
+    body.weight = user.weight;
 
     body.headHeight = user.height * 0.13;
     body.neckLength = user.height * 0.04;

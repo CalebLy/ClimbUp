@@ -2,14 +2,12 @@
 #include "EnumUtils.h"
 #include <stdexcept>
 #include <IKSolver.h>
+#include <Validation.h>
 
-static bool isPoseInitialized(const Pose& pose);
 void translatePose(Pose &pose, const Vec3 &translation)
 {
-    if (!isPoseInitialized(pose))
-    {
-        throw std::invalid_argument("Pose is not initialized.");
-    }
+    
+    validatePoseInitialized(pose);
 
     for (Joint &joint : pose.joints)
     {
@@ -28,9 +26,4 @@ void moveJointTo(Pose& pose, JointType joint, const WallPoint& targetPosition)
     }
 
     pose.joints[toIndex(joint)].position = {targetPosition.x, targetPosition.y, 0.0};
-}
-
-static bool isPoseInitialized(const Pose &pose)
-{
-    return pose.joints.size() == toIndex(JointType::JointCount);
 }
