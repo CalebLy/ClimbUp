@@ -19,3 +19,5 @@ bool solveTwoBoneIK(Pose &pose, JointType root,
     JointType middle, JointType end, const Vec3 &target);
 
 bool getTwoBoneChainForEndJoint(JointType joint, TwoBoneChain& chain);
+
+Vec3 getWristOrAnkleTarget(const Pose& pose, JointType root, JointType wristOrAnkle, JointType handOrFoot, const Vec3& target);

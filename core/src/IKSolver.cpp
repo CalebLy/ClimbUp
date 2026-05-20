@@ -3,7 +3,6 @@
 #include "EnumUtils.h"
 #include <ClimbMath.h>
 
-
 bool solveTwoBoneIK(Pose &pose, JointType root, JointType middle, JointType end, const Vec3 &target)
 {
 
@@ -18,14 +17,16 @@ bool solveTwoBoneIK(Pose &pose, JointType root, JointType middle, JointType end,
     double lengthA = distance(rootPos, middlePos);
     double lengthB = distance(middlePos, endPos);
 
-    if (lengthA <= 0.0 || lengthB <= 0.0) {
+    if (lengthA <= 0.0 || lengthB <= 0.0)
+    {
         return false;
     }
 
     Vec3 rootToTarget = target - rootPos;
     double targetDistance = rootToTarget.length();
 
-    if (targetDistance <= 0.0) {
+    if (targetDistance <= 0.0)
+    {
         return false;
     }
 
@@ -38,12 +39,12 @@ bool solveTwoBoneIK(Pose &pose, JointType root, JointType middle, JointType end,
     Vec3 direction = rootToTarget / targetDistance;
 
     // Point along the root-to-target line where the middle joint projects.
-    double a = (lengthA * lengthA - lengthB * lengthB + clampedDistance * clampedDistance)
-             / (2.0 * clampedDistance);
+    double a = (lengthA * lengthA - lengthB * lengthB + clampedDistance * clampedDistance) / (2.0 * clampedDistance);
 
     double hSquared = lengthA * lengthA - a * a;
 
-    if (hSquared < 0.0) {
+    if (hSquared < 0.0)
+    {
         hSquared = 0.0;
     }
 
@@ -62,7 +63,8 @@ bool solveTwoBoneIK(Pose &pose, JointType root, JointType middle, JointType end,
         currentRootToMiddle.x * perpendicular.x +
         currentRootToMiddle.y * perpendicular.y;
 
-    if (side < 0.0) {
+    if (side < 0.0)
+    {
         perpendicular = perpendicular * -1.0;
     }
 
@@ -75,43 +77,47 @@ bool solveTwoBoneIK(Pose &pose, JointType root, JointType middle, JointType end,
     return true;
 }
 
-bool getTwoBoneChainForEndJoint(JointType joint, TwoBoneChain& chain)
+bool getTwoBoneChainForEndJoint(JointType joint, TwoBoneChain &chain)
 {
     switch (joint)
     {
-        case JointType::LeftHand:
-            chain = {
-                JointType::LeftShoulder,
-                JointType::LeftElbow,
-                JointType::LeftHand
-            };
-            return true;
+    case JointType::LeftHand:
+        chain = {JointType::LeftShoulder, JointType::LeftElbow, JointType::LeftWrist};
+        return true;
 
-        case JointType::RightHand:
-            chain = {
-                JointType::RightShoulder,
-                JointType::RightElbow,
-                JointType::RightHand
-            };
-            return true;
+    case JointType::RightHand:
+        chain = {JointType::RightShoulder, JointType::RightElbow, JointType::RightWrist};
+        return true;
 
-        case JointType::LeftFoot:
-            chain = {
-                JointType::LeftHip,
-                JointType::LeftKnee,
-                JointType::LeftFoot
-            };
-            return true;
+    case JointType::LeftFoot:
+        chain = {JointType::LeftHip, JointType::LeftKnee, JointType::LeftAnkle};
+        return true;
 
-        case JointType::RightFoot:
-            chain = {
-                JointType::RightHip,
-                JointType::RightKnee,
-                JointType::RightFoot
-            };
-            return true;
+    case JointType::RightFoot:
+        chain = {JointType::RightHip, JointType::RightKnee, JointType::RightAnkle};
+        return true;
 
-        default:
-            return false;
+    default:
+        return false;
     }
+}
+
+Vec3 getWristOrAnkleTarget(const Pose& pose, JointType root, JointType wristOrAnkle, JointType handOrFoot, const Vec3& target)
+{
+    Vec3 rootPos = pose.joints[toIndex(root)].position;
+    Vec3 wristOrAnklePos = pose.joints[toIndex(wristOrAnkle)].position;
+    Vec3 handOrFootPos = pose.joints[toIndex(handOrFoot)].position;
+
+    double attachmentLength = distance(wristOrAnklePos, handOrFootPos);
+
+    Vec3 rootToTarget = target - rootPos;
+    double targetDistance = rootToTarget.length();
+
+    if (targetDistance <= 0.0) {
+        return target;
+    }
+
+    Vec3 direction = rootToTarget / targetDistance;
+
+    return target - direction * attachmentLength;
 }

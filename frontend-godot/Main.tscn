@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://cbithwiu4kgyb"]
+
+[ext_resource type="Script" uid="uid://rtb5a3oi1um2" path="res://main.gd" id="1_glv2v"]
+
+[node name="PoseViewer" type="Node2D" unique_id=540958483]
+script = ExtResource("1_glv2v")
+
+[node name="InitializeUser" type="Button" parent="." unique_id=128169045]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 134.0
+offset_bottom = 51.0
+text = "Initialize User"
+
+[node name="TranslateUp" type="Button" parent="." unique_id=701679012]
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 127.0
+offset_bottom = 111.0
+text = "Translate Up"
+
+[node name="TranslateDown" type="Button" parent="." unique_id=1926153672]
+offset_left = 20.0
+offset_top = 120.0
+offset_right = 150.0
+offset_bottom = 151.0
+text = "Translate Down"
+
+[node name="SavePoseButton" type="Button" parent="." unique_id=1702168924]
+offset_left = 1051.0
+offset_top = 91.0
+offset_right = 1136.0
+offset_bottom = 122.0
+text = "Save Pose"
+
+[node name="LoadPoseButton" type="Button" parent="." unique_id=241859969]
+offset_left = 1050.0
+offset_top = 133.0
+offset_right = 1137.0
+offset_bottom = 164.0
+text = "Load Pose"
+
+[node name="PoseIDInput" type="LineEdit" parent="." unique_id=459124860]
+offset_left = 1039.0
+offset_top = 165.0
+offset_right = 1149.0
+offset_bottom = 196.0
+placeholder_text = "Load Pose ID"
+
+[connection signal="button_down" from="InitializeUser" to="." method="_on_button_button_down"]
+[connection signal="pressed" from="InitializeUser" to="." method="_on_initialize_user_pressed"]
+[connection signal="pressed" from="TranslateUp" to="." method="_on_translate_up_pressed"]
+[connection signal="pressed" from="TranslateDown" to="." method="_on_translate_down_pressed"]
+[connection signal="pressed" from="SavePoseButton" to="." method="_on_save_pose_button_pressed"]
+[connection signal="pressed" from="LoadPoseButton" to="." method="_on_load_pose_button_pressed"]
